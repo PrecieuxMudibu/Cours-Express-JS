@@ -4,11 +4,16 @@ const port = 5000;
 const { success } = require('./helper.js');
 let pockemons = require('./mock-pockemon');
 
-// console.log(pockemons.length)
+const logger = (request, response, next) => {
+    console.log(`URL : ${request.url}`);
+    next();
+};
+
+app.use(logger);
+
 app.get('/api/pockemon/:id', (request, response) => {
     const id = parseInt(request.params.id);
     const pockemon = pockemons.find((pockemon) => id === pockemon.id);
-    // response.send(`Le pockemon que vous cherchez est : ${pockemon.name}`);
     const message = `Le pockemon a bien été trouvé.`;
     response.json(success(message, pockemon));
 });
