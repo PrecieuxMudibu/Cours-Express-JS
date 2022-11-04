@@ -14,7 +14,9 @@ app.get('/api/pockemon/:id', (request, response) => {
 });
 
 app.get('/api/pockemons', (request, response) => {
-    response.send(`Il y a ${pockemons.length} pockemons`);
+    const message = 'La liste des pockemon a bien été trouvée.';
+    response.json(success(message, pockemons));
+    // response.send(`Il y a ${pockemons.length} pockemons`);
 });
 
 app.listen(port, console.log(`Notre application tourne sur le port ${port}`));
