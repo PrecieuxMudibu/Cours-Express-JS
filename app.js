@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express(); // On crée une instance d'express. On crée notre petit serveur web sur lequel va tourner notre application
 const port = 5000;
-const helper = require('./helper.js');
+const { success } = require('./helper.js');
 let pockemons = require('./mock-pockemon');
 
 // console.log(pockemons.length)
@@ -10,7 +10,7 @@ app.get('/api/pockemon/:id', (request, response) => {
     const pockemon = pockemons.find((pockemon) => id === pockemon.id);
     // response.send(`Le pockemon que vous cherchez est : ${pockemon.name}`);
     const message = `Le pockemon a bien été trouvé.`;
-    response.json(helper.success(message, pockemon));
+    response.json(success(message, pockemon));
 });
 
 app.get('/api/pockemons', (request, response) => {
