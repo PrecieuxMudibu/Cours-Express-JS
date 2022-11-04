@@ -2,14 +2,10 @@ const express = require('express');
 const app = express(); // On crée une instance d'express. On crée notre petit serveur web sur lequel va tourner notre application
 const port = 5000;
 const { success } = require('./helper.js');
+const morgan = require('morgan');
 let pockemons = require('./mock-pockemon');
 
-const logger = (request, response, next) => {
-    console.log(`URL : ${request.url}`);
-    next();
-};
-
-app.use(logger);
+app.use(morgan('dev'));
 
 app.get('/api/pockemon/:id', (request, response) => {
     const id = parseInt(request.params.id);
