@@ -23,16 +23,6 @@ app.get('/api/pockemons', (request, response) => {
     // response.send(`Il y a ${pockemons.length} pockemons`);
 });
 
-// {
-//     id: 1,
-//     name: "Bulbizarre",
-//     hp: 25,
-//     cp: 5,
-//     picture: "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png",
-//     types: ["Plante", "Poison"],
-//     created: new Date()
-//    },
-
 app.post('/api/pockemons', (request, response) => {
     const id = getUniqueId(pockemons);
 
@@ -50,6 +40,17 @@ app.post('/api/pockemons', (request, response) => {
 
     const message = `Le pockemon ${newPockemon.name} a été créé.`;
     response.json(success(message, pockemons));
+});
+
+app.put('/api/pockemon/:id', (request, response) => {
+    const id = parseInt(request.params.id);
+    const pockemonUpdated = { ...request.body, id: id };
+    pockemons = pockemons.map((pockemon) => {
+        return pockemon.id === id ? pockemonUpdated : pockemon;
+    });
+
+    const message = `Le pockemon ${pockemonUpdated.name} a été mis à jour.`;
+    response.json(success(message, pockemonUpdated));
 });
 
 app.listen(port, console.log(`Notre application tourne sur le port ${port}`));
