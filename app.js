@@ -53,4 +53,12 @@ app.put('/api/pockemon/:id', (request, response) => {
     response.json(success(message, pockemonUpdated));
 });
 
+app.delete('/api/pockemon/:id', (request, response) => {
+    const id = parseInt(request.params.id);
+    const pockemonDeleted = pockemons.find((pockemon) => pockemon.id === id);
+    pockemons = pockemons.filter((pockemon)=>pockemon.id!==id)
+    const message = `Le pockémon ${pockemonDeleted.name} a bien été supprimé.`
+    response.json(success(message, pockemonDeleted))
+});
+
 app.listen(port, console.log(`Notre application tourne sur le port ${port}`));
